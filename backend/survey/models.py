@@ -29,15 +29,23 @@ class Eat(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True, verbose_name="Название пищи, напитка")
     water = models.PositiveIntegerField(null=True, blank=True,)
     meal_time = models.DateField(null=True, blank=True, verbose_name="Время приема пищи")
-    drink = models.ForeignKey("self", on_delete=models.PROTECT, null=True, blank=True,)
+    drink = models.ForeignKey("Drink", on_delete=models.PROTECT, null=True, blank=True,)
 
 
 class Work(models.Model):
+    """Вид деятельности человека"""
     user_id = models.ForeignKey(Profile, on_delete=models.PROTECT, null=True, blank=True,)
     title = models.CharField(null=True, blank=True, max_length=150)
     other = models.TextField(null=True, blank=True,)
 
 
 class Emptions(models.Model):
+    """Испытываемые эмоцц"""
     user_id = models.ForeignKey(Profile, on_delete=models.PROTECT, null=True, blank=True,)
     title = models.CharField(max_length=70, null=True, blank=True,)
+
+
+class Drink(models.Model):
+    """Напитки """
+    title = models.CharField(max_length=80, null=True, blank=True,)
+    other = models.TextField(null=True, blank=True,)

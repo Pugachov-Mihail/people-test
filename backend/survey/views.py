@@ -5,7 +5,6 @@ from rest_framework.response import Response
 
 
 class Test(APIView):
-    permission_classes = [permissions.AllowAny]
 
     def get(self, request):
-        return Response({"message": "hello"})
+        return Response({"le": 'a'})
