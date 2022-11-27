@@ -8,3 +8,6 @@ class Test(APIView):
 
     def get(self, request):
         return Response({"le": 'a'})
+
+
+
