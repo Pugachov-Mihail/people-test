@@ -1,30 +1,76 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import {useEffect, useState} from "react";
-import axios from "axios";
+import {Button, Container, FormControl, Grid, Input, InputLabel, MenuItem, Select, Typography} from "@mui/material";
+import Link from "next/link";
 
 export default function Home() {
-    const [message, setMessage] = useState([])
-    const [load, setLoad] = useState(false)
-
-  useEffect(()=>{
-    const res = async () => {
-        setLoad(true)
-        const respons = await
-            axios.get("https://dfea-185-34-241-15.eu.ngrok.io/")
-                .then(respon => setMessage(prevState =>
-                    [ respon.data]))
-        console.log(respons)
-        setLoad(false)
-    }
-    res()
-  }, [])
-  return (
-   <>
-       { load ? "Загрузка" : ( message.map(item=>(<>
-           <h1>{item.message}</h1>
-       </>))) }
-   </>
+    return(
+        <>
+            <Container fixed>
+                <Grid container sx={{
+                    marginTop: "15%",
+                    marginLeft: "30%",
+                }}>
+                    <Grid xs={12}>
+                        <Typography sx={{
+                            fontSize: 22,
+                            fontWeight: "bold"
+                        }}>
+                            Введите свои данные:
+                        </Typography>
+                    </Grid>
+                    <Grid xs={12} mt={5}>
+                        <form>
+                            <Grid>
+                                <Typography sx={{
+                                    fontWeight:"bold",
+                                    fontSize: 18,
+                                    marginBottom: 2
+                                }}>
+                                    Возраст
+                                </Typography>
+                                <Input placeholder={"Возраст"}/>
+                            </Grid>
+                            <Grid mt={3}>
+                                <InputLabel id='gender'>
+                                    Выберите пол
+                                </InputLabel>
+                                <Select labelId="gender"
+                                        sx={{
+                                            width: "10%"
+                                        }}>
+                                    <MenuItem>Мужской</MenuItem>
+                                </Select>
+                            </Grid>
+                            <Grid mt={3}>
+                                <InputLabel id='gender'>
+                                    Студент
+                                </InputLabel>
+                                <Select
+                                    labelId="gender"
+                                    sx={{
+                                        width: "10%"
+                                    }}>
+                                    <MenuItem>Студент</MenuItem>
+                                </Select>
+                            </Grid>
+                            <Grid mt={3}>
+                                <Typography sx={{
+                                    fontWeight:"bold",
+                                    fontSize: 18,
+                                    marginBottom: 2
+                                }}>
+                                    Название университета
+                                </Typography>
+                                <Input placeholder={"Университет"}/>
+                            </Grid>
+                        </form>
+                    </Grid>
+                </Grid>
+                <Button>
+                    <Link href={"/breakfast"}>
+                        Дальше
+                    </Link>
+                </Button>
+            </Container>
+        </>
   )
 }

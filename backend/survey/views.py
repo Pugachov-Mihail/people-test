@@ -1,13 +1,17 @@
 from django.shortcuts import render
-from rest_framework import permissions
-from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 
+from .serializer import SurveySerialize
+from rest_framework.viewsets import ModelViewSet
+from .models import Survey
 
-class Test(APIView):
 
-    def get(self, request):
-        return Response({"le": 'a'})
+class Tests(ListAPIView):
+    queryset = Survey.objects.all()
+    serializer_class = SurveySerialize
+
+
 
 
 

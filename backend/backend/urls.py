@@ -32,8 +32,11 @@ schema = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include('survey.urls')),
+    path("api/", include('survey.urls')),
     path('swagger/', schema.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     re_path(r'^swagger(\.json|\.yaml)$', schema.without_ui(cache_timeout=0), name='schema-json'),
+    path('api/drf-auth/', include('rest_framework.urls')),
+    path('api/auth/', include('djoser.urls')),
+    re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]

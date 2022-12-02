@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import Test
+from rest_framework import routers
+from .models import Survey
 
+from .views import Tests
 
 urlpatterns = [
-    path('', Test.as_view()),
+    path('test/', Tests.as_view())
 ]
