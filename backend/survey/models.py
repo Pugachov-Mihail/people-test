@@ -1,104 +1,76 @@
 from django.db import models
 
 
-# Create your models here.
-class Profile(models.Model):
-    gender = [
-        ("men", 'Мужчина'),
-        ("women", "Женщина")
-    ]
-    age = models.PositiveIntegerField(null=True, blank=True,
-                                      verbose_name="Возраст")
-    date_of_filling_in = models.DateField(null=True, blank=True,
-                                          verbose_name="Дата заполнения")
-    student = models.BooleanField(default=False, null=True, blank=True, verbose_name="Студент")
-    university = models.TextField(null=True, blank=True, verbose_name="Университет")
-    gender_info = models.TextField(choices=gender, default="men", null=True, blank=True, verbose_name="Пол")
-
-    def __str__(self):
-        return f"{self.gender} {self.age} {self.date_of_filling_in} {self.student} {self.university} {self.gender_info}"
+class Drink(models.Model):
+    """Напиток"""
+    title = models.CharField('наименование напитка', max_length=80)
+    answer = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name = 'Пользователь'
-        verbose_name_plural = "Пользователи"
+        verbose_name = 'напиток'
+        verbose_name_plural = "напитки"
 
 
-class Survey(models.Model):
-    """Опрос"""
-    user_id = models.ForeignKey(Profile, on_delete=models.PROTECT, null=True, blank=True, )
-    # title = models.CharField(max_length=50, null=True, blank=True,
-    #                          verbose_name="Размер порции")
-    date_create = models.DateTimeField(auto_created=True)
-    eat = models.ForeignKey("ChoiseEat", on_delete=models.PROTECT, null=True, blank=True, verbose_name="Еда")
+class Portion(models.Model):
+    """Размер порции"""
+    title = models.CharField('размер порции', max_length=50)
+    answer = models.BooleanField(default=False)
 
     class Meta:
-        verbose_name = 'Опрос'
-        verbose_name_plural = "Опросы"
-
-
-class ChoiseEat(models.Model):
-    CHOISE = (
-        ('1', "Неглубокая тарелка"),
-        ('2', "Суповая тарелка"),
-        ('3', "1 шт"),
-        ('4', "2 шт"),
-        ('5', "3 шт"),
-        ('6', "1 порция(300 гр)"),
-        ('7', "2 порции(500 гр)"),
-        ('8', "3 порции"),
-        ('9', "салат (200 гр)"),
-    )
-    choice = models.ForeignKey("Eat", on_delete=models.PROTECT, null=True, blank=True, )
-    size = models.CharField(choices=CHOISE, max_length=50, null=True, blank=True)
+        verbose_name = 'порция'
+        verbose_name_plural = "порции"
 
     def __str__(self):
-        return self.size
+        return self.title
 
 
 class Eat(models.Model):
     """Еда"""
-    title = models.CharField(max_length=50, null=True, blank=True,
-                             verbose_name="Наименование продукта")
+    title = models.CharField('наименование продукта', max_length=50, null=True, blank=True)
+    answer = models.BooleanField(default=False)
+    portion = models.ForeignKey(Portion, on_delete=models.CASCADE, verbose_name='порция', blank=True, null=True)
 
     def __str__(self):
         return self.title
 
     class Meta:
-        verbose_name = 'Еда'
-        verbose_name_plural = "Еда"
+        verbose_name = 'еда'
+        verbose_name_plural = "еда"
 
 
-class Work(models.Model):
-    """Вид деятельности человека"""
-    user_id = models.ForeignKey(Profile, on_delete=models.PROTECT, null=True, blank=True, )
-    title = models.CharField(null=True, blank=True, max_length=150)
-    other = models.TextField(null=True, blank=True, )
-
-    class Meta:
-        verbose_name = 'Тип работы'
-        verbose_name_plural = "Типы работы"
-
-
-class Emptions(models.Model):
-    """Испытываемые эмоцц"""
-    user_id = models.ForeignKey(Profile, on_delete=models.PROTECT, null=True, blank=True, )
-    title = models.CharField(max_length=70, null=True, blank=True, )
+class Question(models.Model):
+    """Вопрос"""
+    created = models.DateTimeField('дата создания', auto_now=True)
+    title = models.CharField('вопрос', max_length=50, null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Эмоции'
-        verbose_name_plural = "Эмоции"
+        verbose_name = 'вопрос'
+        verbose_name_plural = "вопросы"
+
+    def __str__(self):
+        return self.title
 
 
-class Drink(models.Model):
-    """Напитки """
-    CHOISE = (
-        ("YES", "Да"),
-        ("NO", "Нет")
-    )
-    title = models.CharField(max_length=80, null=True, blank=True)
-    choise = models.CharField(max_length=4, choices=CHOISE, default="No")
-    other = models.TextField(null=True, blank=True)
+class Answer(models.Model):
+    """Ответ"""
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, verbose_name='вопрос')
+    answer = models.TextField('ответ', max_length=500, blank=True, null=True)
+    eats = models.ManyToManyField(Eat, blank=True, verbose_name="еда", related_name='eats', )
+    drinks = models.ManyToManyField(Drink, blank=True, verbose_name='напитки', related_name='drinks')
+    data = models.DateField('дата', blank=True)
+    time = models.TimeField('время', null=True)
+    other = models.BooleanField('другое', default=False)
 
     class Meta:
-        verbose_name = 'Напиток'
-        verbose_name_plural = "Напитки"
+        verbose_name = 'ответы'
+        verbose_name_plural = 'ответы'
+
+
+class Quiz(models.Model):
+    """Опрос, например: Дневник питания"""
+    title = models.CharField('название', max_length=100)
+    question = models.ManyToManyField(Question, verbose_name='вопросы')
+
+    class Meta:
+        verbose_name = 'опрос'
+        verbose_name_plural = 'опросы'
