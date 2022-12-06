@@ -8,15 +8,14 @@ interface FormContainer {
 
 const FormContainer: React.FC<FormContainer> = ({children}) => {
 
-    return (<Container fixed sx={{
-        background: "rgb(199 210 254)",
-        width: "40%",
+    return (<Container sx={{
+        background: "#ce93d8",
         marginTop: "5%",
         borderRadius: 5
     }}>
         <Grid container sx={{
             paddingTop: "10%",
-            marginLeft: "25%",
+            marginLeft: "5%",
             paddingBottom: "5%"
         }}>
             <Grid xs={12}>
