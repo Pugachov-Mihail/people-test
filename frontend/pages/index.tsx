@@ -1,8 +1,20 @@
 import FormContainer from "../components/FormContainer";
-import {Grid, InputLabel, MenuItem,  Typography} from "@mui/material";
+import {Grid} from "@mui/material";
 import {Input, Select, Option} from "@material-tailwind/react";
+import {useState} from "react";
 
 export default function Home() {
+    const [student, setStudent] = useState(false);
+
+
+    const studentValue = (event) => {
+        if (event === 1) {
+            setStudent(true)
+        } else {
+            setStudent(false)
+        }
+    }
+
     return (
         <FormContainer>
             <Grid xs={12} mt={5}>
@@ -14,35 +26,29 @@ export default function Home() {
                     </Grid>
                     <Grid mt={3}>
                         <div className="w-72">
-                            <Select className='color["#263238"]'
-                                label="Выберите пол"
-                                animate={{
-                                    mount: { y: 0 },
-                                    unmount: { y: 25 },
-                                }}
-                            >
+                            <Select color="teal" label="Выберите пол">
                                 <Option>Мужской</Option>
+                                <Option>Женский</Option>
                             </Select>
                         </div>
                     </Grid>
                     <Grid mt={3}>
                         <div className="w-72">
-                            <Select
-                                label="Студент"
-                                animate={{
-                                    mount: { y: 0 },
-                                    unmount: { y: 25 },
-                                }}
-                            >
-                                <Option>Да</Option>
+                            <Select color="teal" label="Студент">
+                                <Option onClick={()=>studentValue(1)}>Да</Option>
+                                <Option onClick={()=>studentValue(0)}>Нет</Option>
                             </Select>
                         </div>
                     </Grid>
-                    <Grid mt={3}>
-                        <div className="flex w-72 flex-col gap-4">
-                            <Input variant="outlined" label="Университет"/>
-                        </div>
-                    </Grid>
+                    {
+                        student ? (
+                            <Grid mt={3}>
+                                <div className="flex w-72 flex-col gap-4">
+                                    <Input variant="outlined" label="Университет"/>
+                                </div>
+                            </Grid>
+                        ) : null
+                    }
                 </form>
             </Grid>
         </FormContainer>

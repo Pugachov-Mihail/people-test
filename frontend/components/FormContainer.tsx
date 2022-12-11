@@ -1,4 +1,4 @@
-import {Button, Container, Grid, Typography} from "@mui/material";
+import {Box, Button, Container, Grid, Typography} from "@mui/material";
 import Link from "next/link";
 import React from "react";
 
@@ -9,13 +9,14 @@ interface FormContainer {
 const FormContainer: React.FC<FormContainer> = ({children}) => {
 
     return (<Container sx={{
-        background: "#ce93d8",
+        background: "white",
+        boxShadow: "0px 0px 6px -1px rgba(0, 0, 0, 1)",
         marginTop: "5%",
-        borderRadius: 5
+        borderRadius: 5,
+        width: "90%"
     }}>
         <Grid container sx={{
-            paddingTop: "10%",
-            marginLeft: "5%",
+            paddingTop: "5%",
             paddingBottom: "5%"
         }}>
             <Grid xs={12}>
@@ -27,38 +28,41 @@ const FormContainer: React.FC<FormContainer> = ({children}) => {
                 </Typography>
             </Grid>
             {children}
-            <Grid sx={{
-                marginTop: 10,
-                marginLeft: 30
-            }}>
-                <Button sx={{
-                    background: 'rgb(79 70 229)',
-                    color: 'white',
-                    '&: hover': {
-                        background: 'rgb(55 48 163)',
-                    }
-                }}>
-                    <Link href={"/breakfast"}>
-                        Дальше
-                    </Link>
-                </Button>
-            </Grid>
-            <Grid sx={{
-                marginTop: 10,
-                marginLeft: 30
-            }}>
-                <Button sx={{
-                    background: 'rgb(79 70 229)',
-                    color: 'white',
-                    '&: hover': {
-                        background: 'rgb(55 48 163)',
-                    }
-                }}>
-                    <Link href={"/"}>
-                        Назад
-                    </Link>
-                </Button>
-            </Grid>
+           <Box mt={3}>
+               <div className="flex">
+                   <Grid>
+                       <Button sx={{
+                           background: '#7cb342',
+                           color: 'black',
+                           boxShadow: "0px 0px 6px -1px rgba(0, 0, 0, 1)",
+                           '&: hover': {
+                               background: '#7cb342',
+                               color: 'white'
+                           }
+                       }}>
+                           <Link href={"/"}>
+                               Назад
+                           </Link>
+                       </Button>
+                   </Grid>
+                   <Grid sx={{
+                       marginLeft: "20%"
+                   }}>
+                       <Button sx={{
+                           color: 'black',
+                           boxShadow: "0px 0px 6px -1px rgba(0, 0, 0, 1)",
+                           '&: hover': {
+                               background: '#7cb342',
+                               color: 'white',
+                           }
+                       }}>
+                           <Link href={"/breakfast"}>
+                               Дальше
+                           </Link>
+                       </Button>
+                   </Grid>
+               </div>
+           </Box>
         </Grid>
     </Container>)
 }
