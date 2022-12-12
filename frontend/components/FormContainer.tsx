@@ -17,7 +17,7 @@ const FormContainer: React.FC<FormContainer> = ({children}) => {
     }}>
         <Grid container sx={{
             paddingTop: "5%",
-            paddingBottom: "5%"
+            paddingBottom: "5%",
         }}>
             <Grid xs={12}>
                 <Typography sx={{
