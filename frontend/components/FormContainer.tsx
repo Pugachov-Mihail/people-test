@@ -28,41 +28,43 @@ const FormContainer: React.FC<FormContainer> = ({children}) => {
                 </Typography>
             </Grid>
             {children}
-           <Box mt={3}>
-               <div className="flex">
-                   <Grid>
-                       <Button sx={{
-                           background: '#7cb342',
-                           color: 'black',
-                           boxShadow: "0px 0px 6px -1px rgba(0, 0, 0, 1)",
-                           '&: hover': {
+           <Grid xs={9}>
+               <Box mt={3}>
+                   <div className="flex">
+                       <Grid>
+                           <Button sx={{
                                background: '#7cb342',
-                               color: 'white'
-                           }
+                               color: 'black',
+                               boxShadow: "0px 0px 6px -1px rgba(0, 0, 0, 1)",
+                               '&: hover': {
+                                   background: '#7cb342',
+                                   color: 'white'
+                               }
+                           }}>
+                               <Link href={"/"}>
+                                   Назад
+                               </Link>
+                           </Button>
+                       </Grid>
+                       <Grid sx={{
+                           marginLeft: "20%"
                        }}>
-                           <Link href={"/"}>
-                               Назад
-                           </Link>
-                       </Button>
-                   </Grid>
-                   <Grid sx={{
-                       marginLeft: "20%"
-                   }}>
-                       <Button sx={{
-                           color: 'black',
-                           boxShadow: "0px 0px 6px -1px rgba(0, 0, 0, 1)",
-                           '&: hover': {
-                               background: '#7cb342',
-                               color: 'white',
-                           }
-                       }}>
-                           <Link href={"/breakfast"}>
-                               Дальше
-                           </Link>
-                       </Button>
-                   </Grid>
-               </div>
-           </Box>
+                           <Button sx={{
+                               color: 'black',
+                               boxShadow: "0px 0px 6px -1px rgba(0, 0, 0, 1)",
+                               '&: hover': {
+                                   background: '#7cb342',
+                                   color: 'white',
+                               }
+                           }}>
+                               <Link href={"/breakfast"}>
+                                   Дальше
+                               </Link>
+                           </Button>
+                       </Grid>
+                   </div>
+               </Box>
+           </Grid>
         </Grid>
     </Container>)
 }
