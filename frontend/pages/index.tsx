@@ -42,9 +42,8 @@ export default function Home() {
     }
 
     return (
-        <FormContainer>
+        <FormContainer about={"Введите свои данные:"} down={"/"} next={"/breakfast"}>
             <Grid xs={12} mt={5}>
-                <form>
                     <Grid>
                         <div className="flex w-72 flex-col gap-4">
                             <Input variant="outlined" label="Возраст"/>
@@ -132,7 +131,6 @@ export default function Home() {
                             }
                         </div>
                     </Grid>
-                </form>
             </Grid>
         </FormContainer>
     )

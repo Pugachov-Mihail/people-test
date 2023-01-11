@@ -1,5 +1,6 @@
 import {Box, Grid, Typography} from "@mui/material";
 import React from "react";
+import {Input} from "@material-tailwind/react";
 
 interface Drink{
     name: string
@@ -16,7 +17,7 @@ const Drink = ({drinks, text}:any) => {
           marginTop: "2%",
           borderRadius: 2,
           width: "90%",
-          paddingLeft: "5%",
+          paddingLeft: "3%",
       }}>
           <Grid container mt={2}>
               <Grid mt={1} mb={1}>

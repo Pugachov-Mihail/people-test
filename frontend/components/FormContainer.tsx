@@ -4,9 +4,12 @@ import React from "react";
 
 interface FormContainer {
     children: React.ReactNode;
+    next: string;
+    down: string;
+    about: string;
 }
 
-const FormContainer: React.FC<FormContainer> = ({children}) => {
+const FormContainer: React.FC<FormContainer> = ({children,about ,next, down}) => {
 
     return (<Container sx={{
         background: "white",
@@ -24,7 +27,7 @@ const FormContainer: React.FC<FormContainer> = ({children}) => {
                     fontSize: 22,
                     fontWeight: "bold"
                 }}>
-                    Введите свои данные:
+                    {about}
                 </Typography>
             </Grid>
             {children}
@@ -41,7 +44,7 @@ const FormContainer: React.FC<FormContainer> = ({children}) => {
                                    color: 'white'
                                }
                            }}>
-                               <Link href={"/"}>
+                               <Link href={down}>
                                    Назад
                                </Link>
                            </Button>
@@ -57,7 +60,7 @@ const FormContainer: React.FC<FormContainer> = ({children}) => {
                                    color: 'white',
                                }
                            }}>
-                               <Link href={"/breakfast"}>
+                               <Link href={next}>
                                    Дальше
                                </Link>
                            </Button>
